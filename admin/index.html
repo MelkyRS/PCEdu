@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Edukasi Rakit PC</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Admin Dashboard</div>
+        <ul class="nav-links">
+            <li><a href="../">Kembali ke Web Publik</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <h2>Manajemen Materi Komponen (CRUD)</h2>
+        <p>Halaman ini dikhususkan untuk admin menambah, mengubah, atau menghapus data spesifikasi komputer.</p>
+        
+        <div class="card" style="margin-top: 2rem;">
+            <h3>Tambah Komponen Baru</h3>
+            <form class="contact-form" id="adminForm">
+                <label>Nama Komponen:</label>
+                <input type="text" id="namaKomp" placeholder="Contoh: Sistem Pendingin (Cooler)">
+                
+                <label>Fungsi / Penjelasan:</label>
+                <textarea id="fungsiKomp" rows="3" placeholder="Masukkan penjelasan fungsional komponen..."></textarea>
+                
+                <button type="button" class="btn-primary" onclick="alert('Ini akan mengirim data ke Supabase/MySQL!')">Simpan Data</button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
