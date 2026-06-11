@@ -7,7 +7,7 @@ window.dataMekanikSimulator = [];
 let dataMateriAwal = []; 
 let dataKuis = []; 
 let indeksKuisSekarang = 0;
-let skorKuis = 0;
+let jumlahBenar = 0;
 
 const formatRupiah = (angka) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(angka);
 
@@ -42,14 +42,22 @@ async function isiDropdownSimulator() {
     });
 }
 
+function acakSoal(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
 async function muatSoalKuisDinamis() {
-    const { data, error } = await clientDB.from('kuis').select('*').order('id', { ascending: true });
+    const { data, error } = await clientDB.from('kuis').select('*');
     if (error) return console.error("Gagal memuat bank soal kuis:", error.message);
     
     if (data && data.length > 0) {
-        dataKuis = data; 
+        dataKuis = acakSoal(data); 
         indeksKuisSekarang = 0;
-        skorKuis = 0;
+        jumlahBenar = 0;
         muatSoalKuis(); 
     }
 }
@@ -172,7 +180,7 @@ function periksaJawaban(indexDipilih, elemenTombol) {
     
     if (indexDipilih === benar) {
         elemenTombol.classList.add('benar');
-        skorKuis += Math.round(100 / dataKuis.length); 
+        jumlahBenar++; 
     } else {
         elemenTombol.classList.add('salah');
         semuaTombol[benar].classList.add('benar');
@@ -194,21 +202,39 @@ function tampilkanHasil() {
     document.getElementById('pertanyaanKuis').textContent = "Kuis Selesai!";
     document.getElementById('opsiJawaban').innerHTML = '';
     document.getElementById('btnSelanjutnya').style.display = 'none';
-    document.getElementById('skorAkhir').textContent = `Skor Anda: ${skorKuis} dari 100`;
+    
+    const skorAkhir = Math.round((jumlahBenar / dataKuis.length) * 100);
+    document.getElementById('skorAkhir').textContent = `Skor Anda: ${skorAkhir} dari 100`;
     
     const btnUlang = document.createElement('button');
     btnUlang.className = 'btn-primary';
     btnUlang.textContent = 'Ulangi Kuis';
     btnUlang.onclick = () => {
         indeksKuisSekarang = 0;
-        skorKuis = 0;
+        jumlahBenar = 0;
+        dataKuis = acakSoal(dataKuis); 
         muatSoalKuis();
     };
     document.getElementById('opsiJawaban').appendChild(btnUlang);
 }
-
 document.addEventListener('DOMContentLoaded', () => {
     fetchKomponen();
     isiDropdownSimulator();
     muatSoalKuisDinamis();
 });
+
+async function kirimPesan() {
+    const nama = document.getElementById('kontak-nama').value;
+    const pesan = document.getElementById('kontak-pesan').value;
+
+    if(!nama || !pesan) return alert('Nama dan Pesan wajib diisi!');
+
+    const { error } = await clientDB.from('pesan_kontak').insert([{ nama, pesan }]);
+    if(error) {
+        alert('Gagal mengirim pesan: ' + error.message);
+    } else {
+        alert('Terima kasih! Pesan Anda telah terkirim.');
+        document.getElementById('kontak-nama').value = '';
+        document.getElementById('kontak-pesan').value = '';
+    }
+}
