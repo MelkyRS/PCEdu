@@ -217,10 +217,18 @@ function tampilkanHasil() {
     };
     document.getElementById('opsiJawaban').appendChild(btnUlang);
 }
+
 document.addEventListener('DOMContentLoaded', () => {
     fetchKomponen();
     isiDropdownSimulator();
     muatSoalKuisDinamis();
+
+    const savedPage = localStorage.getItem('activePage');
+    if (savedPage) {
+        showPage(savedPage);
+    } else {
+        showPage('beranda');
+    }
 });
 
 async function kirimPesan() {
@@ -237,4 +245,18 @@ async function kirimPesan() {
         document.getElementById('kontak-nama').value = '';
         document.getElementById('kontak-pesan').value = '';
     }
+}
+
+function showPage(pageId) {
+    const pages = document.querySelectorAll('.page');
+    pages.forEach(page => page.classList.remove('active'));
+    
+    const targetPage = document.getElementById(pageId);
+    if (targetPage) {
+        targetPage.classList.add('active');
+        localStorage.setItem('activePage', pageId); 
+    }
+    
+    const navLinks = document.getElementById('navLinks');
+    if (navLinks && navLinks.classList.contains('show')) navLinks.classList.remove('show');
 }
