@@ -1,60 +1,236 @@
-INSERT INTO kuis (tanya, opsi, jawaban_benar) VALUES
-('Komponen apa yang sering disebut sebagai "otak" dari sebuah komputer yang mengeksekusi instruksi data?', ARRAY['Prosesor (CPU)', 'Motherboard', 'RAM', 'Hard Disk'], 0),
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edukasi Rakit PC</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">PCEdu</div>
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#" onclick="showPage('beranda')">Beranda</a></li>
+            <li><a href="#" onclick="showPage('materi')">Materi Komponen</a></li>
+            <li><a href="#" onclick="showPage('perakitan')">Panduan Perakitan</a></li>
+            <li><a href="#" onclick="showPage('rekomendasi')">Rekomendasi Spesifikasi</a></li>
+            <li><a href="#" onclick="showPage('kuis')">Kuis</a></li>
+            <li><a href="#" onclick="showPage('simulator')">Coba Rakit</a></li>
+            <li><a href="#" onclick="showPage('kontak')">Kontak</a></li>
+            <li><a href="admin/" class="btn-admin">Login Admin</a></li>
+        </ul>
+    </nav>
 
-('Memori penyimpanan sementara yang sangat cepat namun datanya akan hilang saat komputer dimatikan adalah...', ARRAY['ROM', 'RAM', 'SSD', 'Flashdisk'], 1),
+    <main class="container">
+        <section id="beranda" class="page active">
+            <div class="hero-banner">
+                <div class="banner-content">
+                    <h1>Panduan Lengkap Merakit Komputer</h1>
+                    <p>Kenali spesifikasi komponennya, pahami fungsinya, dan rakit PC Anda sendiri dengan aman.</p>
+                    <button onclick="showPage('materi')" class="btn-primary">Mulai Belajar</button>
+                </div>
+            </div>
 
-('Fungsi utama dari Power Supply Unit (PSU) adalah...', ARRAY['Mendinginkan komputer', 'Menyimpan data', 'Mengubah arus listrik AC menjadi arus DC', 'Menampilkan grafik visual'], 2),
+            <div class="intro-text">
+                <h2>Selamat Datang</h2>
+                <p>Website ini dirancang khusus untuk membantu pengguna pemula memahami spesifikasi komponen PC, fungsi setiap perangkat keras, serta panduan merakit PC secara benar. Jangan takut untuk memulai, karena merakit PC sebenarnya seperti menyusun puzzle jika Anda sudah memahami dasar-dasarnya.</p>
+            </div>
+        </section>
 
-('Komponen mana yang paling bertanggung jawab untuk merender grafik 3D pada game atau software editing?', ARRAY['CPU', 'PSU', 'RAM', 'VGA (Kartu Grafis)'], 3),
+        <section id="materi" class="page">
+            <h2>Materi Komponen PC</h2>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Cari komponen (contoh: Prosesor)..." onkeyup="cariKomponen()">
+            </div>
+            <div id="komponenList" class="komponen-grid">
+                </div>
+        </section>
 
-('Apa tujuan utama mengoleskan thermal paste pada bagian atas prosesor?', ARRAY['Menghantarkan panas dari CPU ke pendingin (cooler) secara optimal', 'Menempelkan CPU ke soket motherboard agar tidak lepas', 'Melindungi prosesor dari goresan saat dipasang', 'Mempercepat kecepatan frekuensi clock CPU'], 0),
+ <section id="perakitan" class="page">
+            <h2>Panduan Lengkap Perakitan PC</h2>
+            <div class="step-list">
+                <div class="step-card">
+                    <h3>1. Persiapan Alat dan Komponen</h3>
+                    <p>Siapkan obeng plus (ukuran Philips #2), gelang anti-statis (opsional), flashdisk berisi OS Windows/Linux, dan area kerja yang tidak beralaskan karpet untuk menghindari listrik statis.</p>
+                </div>
+                
+                <div class="step-card">
+                    <h3>2. Pemasangan Prosesor (CPU)</h3>
+                    <p>Buka tuas soket motherboard. Sejajarkan tanda segitiga emas pada sudut CPU dengan tanda di soket motherboard. Letakkan perlahan (jangan ditekan), lalu tutup dan kunci tuasnya.</p>
+                </div>
+                
+                <div class="step-card">
+                    <h3>3. Pemasangan RAM (Memory)</h3>
+                    <p>Buka klip pengunci pada ujung slot RAM di motherboard. Sejajarkan lekukan di pin RAM dengan slot. Tekan kedua ujung RAM secara bersamaan agak kuat hingga terdengar bunyi "klik" dan klip terkunci otomatis.</p>
+                </div>
 
-('Papan sirkuit utama tempat semua komponen komputer terhubung dan berkomunikasi disebut...', ARRAY['Breadboard', 'Motherboard', 'Dashboard', 'Kartu Ekspansi'], 1),
+                <div class="step-card">
+                    <h3>4. Pemasangan Penyimpanan (M.2 NVMe / SSD)</h3>
+                    <p>Untuk M.2 NVMe: Masukkan ke slot M.2 dengan kemiringan 30 derajat, tekan ke bawah, lalu baut di bagian ujungnya. Untuk SSD SATA: Pemasangan dilakukan di casing dan disambungkan dengan kabel SATA ke motherboard.</p>
+                </div>
 
-('Apa keunggulan utama SSD (Solid State Drive) dibandingkan HDD (Hard Disk Drive) tradisional?', ARRAY['Kapasitas penyimpanan selalu lebih besar', 'Harga per Gigabyte lebih murah', 'Kecepatan baca/tulis data jauh lebih cepat karena tidak menggunakan piringan mekanik', 'Bentuk fisiknya selalu lebih tebal'], 2),
+                <div class="step-card">
+                    <h3>5. Pemasangan Sistem Pendingin (CPU Cooler)</h3>
+                    <p>Oleskan *thermal paste* (jika belum ada bawaan dari cooler) secukupnya di atas CPU. Pasang cooler di atas CPU, kencangkan bautnya menyilang agar tekanan merata. Sambungkan kabel kipas ke pin "CPU_FAN" di motherboard.</p>
+                </div>
 
-('Jenis penyimpanan SSD modern berkecepatan tinggi yang ditancapkan langsung ke motherboard tanpa kabel tambahan adalah...', ARRAY['SATA 2.5 inch', 'HDD Eksternal', 'SAS', 'M.2 NVMe'], 3),
+                <div class="step-card">
+                    <h3>6. Memasukkan Motherboard ke Casing</h3>
+                    <p>Pasang I/O Shield (besi penutup port) di bagian belakang casing. Masukkan motherboard secara hati-hati, sejajarkan lubang baut motherboard dengan dudukan (stand-off) di casing, lalu pasang bautnya.</p>
+                </div>
 
-('Dalam merakit PC, apa fungsi vital dari baut stand-off (dudukan kuningan) di dalam casing?', ARRAY['Mencegah korsleting (short) antara motherboard dan pelat besi casing', 'Menahan beban dari power supply', 'Mengunci hard disk agar tidak bergetar', 'Mempercantik tampilan interior casing'], 0),
+                <div class="step-card">
+                    <h3>7. Pemasangan Power Supply (PSU)</h3>
+                    <p>Masukkan PSU ke tempatnya di casing (biasanya di bawah), pastikan posisi kipas menghadap ventilasi pembuangan. Kencangkan dengan 4 baut di bagian belakang casing.</p>
+                </div>
 
-('Jika komputer menyala tetapi tidak ada tampilan di layar dan terdengar bunyi beep panjang berulang, kemungkinan besar masalahnya ada pada...', ARRAY['Mouse tidak tercolok dengan benar', 'RAM tidak terpasang dengan rapat di slotnya', 'Kipas casing mati', 'Keyboard rusak'], 1),
+                <div class="step-card">
+                    <h3>8. Pemasangan Kartu Grafis (VGA/GPU)</h3>
+                    <p>Buka penutup slot PCIe di bagian belakang casing. Masukkan VGA ke slot PCIe x16 (paling atas) pada motherboard hingga berbunyi "klik". Baut VGA ke casing agar tidak turun.</p>
+                </div>
 
-('Kabel konektor utama dari Power Supply yang memiliki 24-pin ditancapkan ke komponen apa?', ARRAY['Kartu Grafis (VGA)', 'Penyimpanan (Storage)', 'Motherboard', 'Prosesor (CPU)'], 2),
+                <div class="step-card">
+                    <h3>9. Manajemen Kabel (Cabling)</h3>
+                    <p>Sambungkan kabel dari PSU: Kabel 24-pin ATX ke motherboard, 8-pin EPS ke CPU (kiri atas motherboard), dan kabel PCIe ke VGA (jika butuh power tambahan). Jangan lupa sambungkan kabel *Front Panel* casing (Power, Reset, LED) ke pin motherboard sesuai buku manual.</p>
+                </div>
 
-('Kabel dari casing yang bertuliskan Power SW, Reset SW, dan HDD LED harus disambungkan ke...', ARRAY['Power Supply', 'Kartu Grafis', 'Penyimpanan', 'Pin Front Panel di Motherboard'], 3),
+                <div class="step-card">
+                    <h3>10. Pengujian (First Boot) dan Instalasi OS</h3>
+                    <p>Colokkan kabel monitor ke VGA (jangan ke motherboard jika memakai VGA *add-on*), mouse, keyboard, dan kabel power. Nyalakan PC. Jika masuk ke BIOS, perakitan perangkat keras berhasil. Lanjutkan dengan mencolokkan flashdisk untuk instalasi Sistem Operasi.</p>
+                </div>
+            </div>
+        </section>
 
-('Apa fungsi menggunakan gelang anti-statis (anti-static wrist strap) saat merakit PC?', ARRAY['Mencegah kerusakan komponen mikro akibat sengatan listrik statis dari tubuh kita', 'Membuat perakit terhindar dari sengatan listrik PLN 220V', 'Memudahkan saat memegang baut kecil', 'Hanya aksesoris opsional agar terlihat profesional'], 0),
+        <section id="rekomendasi" class="page">
+            <h2>Rekomendasi Spesifikasi Minimum</h2>
+            <p style="margin-bottom: 1rem;">Berikut adalah daftar spare part minimum sebagai acuan sebelum Anda membeli atau merakit komputer sesuai kebutuhan.</p>
+            
+            <div class="rekomendasi-grid">
+                <div class="rekomendasi-card edukasi">
+                    <div class="card-header">
+                        <h3>Kebutuhan Edukasi / Sekolah</h3>
+                        <p>Cocok untuk browsing, Microsoft Office ringan, dan Zoom/Google Meet.</p>
+                    </div>
+                    <ul class="spec-list">
+                        <li><strong>Prosesor:</strong> Intel Celeron / Pentium Gold / AMD Athlon 3000G</li>
+                        <li><strong>RAM:</strong> 4GB DDR4 (Disarankan 8GB)</li>
+                        <li><strong>Storage:</strong> SSD 256GB SATA/NVMe</li>
+                        <li><strong>VGA:</strong> Integrated Graphics (Bawaan Prosesor)</li>
+                        <li><strong>Motherboard:</strong> H410 (Intel) / A320 (AMD)</li>
+                        <li><strong>PSU:</strong> 400W Standar (Bawaan Casing aman)</li>
+                    </ul>
+                </div>
 
-('Memasang dua keping RAM identik pada slot yang direkomendasikan di motherboard bertujuan untuk mengaktifkan fitur...', ARRAY['Overclocking', 'Dual Channel', 'Crossfire / SLI', 'Hyper-threading'], 1),
+                <div class="rekomendasi-card office">
+                    <div class="card-header">
+                        <h3>Kebutuhan Office / Kerja</h3>
+                        <p>Cocok untuk multitasking Excel berat, presentasi, dan pengelolaan database ringan.</p>
+                    </div>
+                    <ul class="spec-list">
+                        <li><strong>Prosesor:</strong> Intel Core i3 (Gen 10/12) / AMD Ryzen 3 (3200G/4300G)</li>
+                        <li><strong>RAM:</strong> 8GB DDR4 (Dual Channel 2x4GB)</li>
+                        <li><strong>Storage:</strong> SSD 512GB NVMe</li>
+                        <li><strong>VGA:</strong> Integrated Graphics (UHD / Radeon Vega)</li>
+                        <li><strong>Motherboard:</strong> H510/H610 (Intel) / A520/B450 (AMD)</li>
+                        <li><strong>PSU:</strong> 400W 80+ Bronze</li>
+                    </ul>
+                </div>
 
-('Jika Anda memiliki prosesor AMD seri Ryzen 5000, jenis socket motherboard apa yang Anda butuhkan?', ARRAY['LGA 1700', 'LGA 1200', 'AM4', 'AM5'], 2),
+                <div class="rekomendasi-card gaming">
+                    <div class="card-header">
+                        <h3>Kebutuhan Gaming / Editing</h3>
+                        <p>Cocok untuk bermain game masa kini (1080p) dan rendering video/animasi.</p>
+                    </div>
+                    <ul class="spec-list">
+                        <li><strong>Prosesor:</strong> Intel Core i5 (Gen 12/13) / AMD Ryzen 5 (5600/7600)</li>
+                        <li><strong>RAM:</strong> 16GB DDR4/DDR5 (Dual Channel 2x8GB)</li>
+                        <li><strong>Storage:</strong> SSD 1TB NVMe Gen 3/Gen 4</li>
+                        <li><strong>VGA:</strong> NVIDIA RTX 3060 / AMD Radeon RX 6600</li>
+                        <li><strong>Motherboard:</strong> B660/B760 (Intel) / B550/B650 (AMD)</li>
+                        <li><strong>PSU:</strong> 550W - 650W 80+ Bronze/Gold</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section id="kuis" class="page">
+            <h2>Kuis Evaluasi Pemahaman</h2>
+            <p>Uji pengetahuan Anda tentang komponen dan perakitan PC di sini.</p>
+            
+            <div id="quizContainer" class="card" style="margin-top: 1rem;">
+                <h3 id="pertanyaanKuis">Memuat Pertanyaan...</h3>
+                <div id="opsiJawaban" class="opsi-grid"></div>
+                <button id="btnSelanjutnya" class="btn-primary" style="display:none;" onclick="soalSelanjutnya()">Selanjutnya</button>
+                <p id="skorAkhir" style="font-weight: bold; margin-top: 1rem;"></p>
+            </div>
+        </section>
 
-('Sertifikasi "80 Plus" pada sebuah Power Supply (PSU) merujuk pada metrik apa?', ARRAY['Kapasitas daya maksimal selalu 80 Watt', 'Masa garansi komponen selama 80 bulan', 'Menyediakan jumlah total 80 kabel konektor', 'Tingkat efisiensi konversi daya listrik minimal 80%'], 3),
+        <section id="simulator" class="page">
+            <h2>Simulator Rakit PC</h2>
+            <p>Pilih komponen sesuai budget Anda. Sistem akan otomatis memperingatkan jika ada komponen yang tidak cocok.</p>
+            
+            <div class="simulator-layout">
+                <div class="simulator-form">
+                    <div class="form-group">
+                        <label>Prosesor (CPU):</label>
+                        <select id="sim-cpu" onchange="hitungSimulator()"><option value="">-- Pilih CPU --</option></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Motherboard:</label>
+                        <select id="sim-mobo" onchange="hitungSimulator()"><option value="">-- Pilih Motherboard --</option></select>
+                    </div>
+                    <div class="form-group">
+                        <label>RAM (Memory):</label>
+                        <select id="sim-ram" onchange="hitungSimulator()"><option value="">-- Pilih RAM --</option></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Kartu Grafis (VGA):</label>
+                        <select id="sim-vga" onchange="hitungSimulator()"><option value="">-- Pilih VGA --</option></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Penyimpanan (Storage):</label>
+                        <select id="sim-storage" onchange="hitungSimulator()"><option value="">-- Pilih Storage --</option></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Power Supply (PSU):</label>
+                        <select id="sim-psu" onchange="hitungSimulator()"><option value="">-- Pilih PSU --</option></select>
+                    </div>
+                </div>
 
-('Istilah "Bottleneck" dalam merakit spesifikasi PC berarti...', ARRAY['Kinerja PC terhambat karena ada satu komponen yang kemampuannya jauh lebih rendah dari komponen lain', 'Leher casing komputer terlalu sempit untuk udara mengalir', 'Prosesor mengalami panas berlebih', 'Koneksi internet tidak stabil'], 0),
+                <div class="simulator-summary card">
+                    <h3>Ringkasan Rakitan</h3>
+                    <div id="warningBox" class="warning-box" style="display: none;"></div>
+                    <hr style="margin: 1rem 0;">
+                    <div class="total-price">
+                        <span>Total Estimasi Harga:</span>
+                        <h2 id="totalHarga">Rp 0</h2>
+                    </div>
+                    <button class="btn-primary" style="width: 100%; margin-top: 1rem;" onclick="resetSimulator()">Reset Pilihan</button>
+                </div>
+            </div>
+        </section>
 
-('Slot ekspansi memanjang bernama PCIe x16 pada motherboard utamanya digunakan untuk menancapkan...', ARRAY['Kepingan RAM', 'Kartu Grafis (VGA)', 'Sound Card', 'Kabel Power'], 1),
+        <section id="kontak" class="page">
+            <h2>Hubungi Kami</h2>
+            <form class="contact-form">
+                <label>Nama:</label>
+                <input type="text" id="kontak-nama" placeholder="Masukkan nama Anda">
+                <label>Pesan/Saran:</label>
+                <textarea id="kontak-pesan" rows="5" placeholder="Tulis pesan Anda..."></textarea>
+                <button type="button" class="btn-primary" onclick="kirimPesan()">Kirim Pesan</button>
+            </form>
+        </section>
+    </main>
 
-('Kabel data berukuran kecil yang umum digunakan untuk menghubungkan HDD atau SSD 2.5 inch ke motherboard adalah...', ARRAY['Kabel HDMI', 'Kabel USB', 'Kabel SATA', 'Kabel VGA'], 2),
+    <footer>
+        <p>&copy; 2026 Edukasi Rakit PC - Kelompok 6.</p>
+    </footer>
 
-('Baterai kecil (CMOS) berbentuk koin pada motherboard berfungsi untuk...', ARRAY['Menghidupkan kipas CPU saat darurat', 'Menambah kecepatan frekuensi RAM', 'Menyimpan file dokumen jika PC mati mendadak', 'Menyimpan pengaturan BIOS dan mempertahankan waktu/jam sistem'], 3),
-
-('Lempengan besi (I/O Shield) yang disertakan di dalam kotak motherboard dipasang pada bagian mana dari casing?', ARRAY['Belakang casing (tempat port USB/Audio berada)', 'Atas casing sebagai ventilasi', 'Bawah casing penyangga PSU', 'Depan casing penutup drive optik'], 0),
-
-('Kabel power dari kipas pendingin prosesor (CPU Cooler) WAJIB dicolokkan ke pin khusus di motherboard yang umumnya bertuliskan...', ARRAY['SYS_FAN', 'CPU_FAN', 'PUMP_FAN', 'RGB_HEADER'], 1),
-
-('Praktik memaksa komponen hardware (seperti CPU atau VGA) berjalan di kecepatan clock yang lebih tinggi dari standar pabrik demi performa ekstra disebut...', ARRAY['Underclocking', 'Downclocking', 'Overclocking', 'Turbo Boost'], 2),
-
-('Kemampuan monitor untuk memperbarui gambar dalam satu detik, yang diukur dalam satuan Hertz (Hz), disebut...', ARRAY['Resolusi Layar', 'Contrast Ratio', 'Response Time', 'Refresh Rate'], 3),
-
-('Kinerja kelancaran grafis sebuah game biasanya diukur dengan satuan FPS, singkatan dari...', ARRAY['Frames Per Second', 'First Person Shooter', 'Fast Processing System', 'Frequency Per Second'], 0),
-
-('Ukuran (Form Factor) motherboard terkecil yang umum digunakan untuk merakit PC berukuran mungil (kompak) adalah...', ARRAY['ATX', 'Mini-ITX', 'Micro-ATX', 'E-ATX'], 1),
-
-('Komponen mana yang spesifikasinya (kapasitas Watt) sebaiknya ditentukan paling akhir, setelah Anda menghitung total konsumsi daya dari CPU, VGA, dan komponen lainnya?', ARRAY['Casing', 'Monitor', 'Power Supply (PSU)', 'RAM'], 2),
-
-('Sistem pendingin prosesor yang menggunakan sirkulasi cairan dalam selang tertutup dipompa ke radiator disebut...', ARRAY['Air Cooler', 'Passive Cooler', 'Blower Style Fan', 'AIO (All-in-One) Liquid Cooler'], 3),
-
-('Mekanisme keamanan di mana CPU secara otomatis menurunkan kecepatannya saat mendeteksi suhu sudah melewati batas wajar (kepanasan) disebut...', ARRAY['Thermal Throttling', 'Overheating', 'Bottlenecking', 'Freezing'], 0),
-
-('Layar antarmuka sistem dasar yang pertama kali dapat Anda akses sesaat setelah PC dirakit dan dinyalakan (bahkan sebelum menginstal Windows) adalah...', ARRAY['Control Panel', 'BIOS / UEFI', 'Task Manager', 'Command Prompt'], 1);
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+</body>
+</html>
