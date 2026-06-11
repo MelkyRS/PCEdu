@@ -5,39 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - PCEdu</title>
     <link rel="stylesheet" href="../style.css">
+    <style>
+        .auth-only { display: none !important; }
+    </style>
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">Admin Dashboard</div>
-        <ul class="nav-links">
-            <li><a href="#" onclick="bukaTab('tab-materi')">Manajemen Materi</a></li>
-            <li><a href="#" onclick="bukaTab('tab-simulator')">Manajemen Simulator</a></li>
-            <li><a href="#" onclick="bukaTab('tab-kuis')">Manajemen Kuis</a></li>
-            <li><a href="../" class="btn-admin" style="background:#34495e;">Kembali ke Web</a></li>
+        <div class="logo">Admin Panel</div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li class="auth-only"><a href="#" onclick="bukaTab('tab-materi')">Materi</a></li>
+            <li class="auth-only"><a href="#" onclick="bukaTab('tab-simulator')">Simulator</a></li>
+            <li class="auth-only"><a href="#" onclick="bukaTab('tab-kuis')">Kuis</a></li>
+            <li class="auth-only"><a href="#" onclick="bukaTab('tab-pesan')">Pesan</a></li>
+            <li class="auth-only"><a href="#" onclick="logoutAdmin()" style="color:#e74c3c; font-weight:bold;">Logout</a></li>
+            <li><a href="../" class="btn-admin" style="background:#34495e;">Ke Web Publik</a></li>
         </ul>
     </nav>
 
     <main class="container">
-        <section id="tab-materi" class="page active">
+        <section id="tab-login" class="page active">
+            <div class="card" style="max-width: 400px; margin: 2rem auto; text-align:center;">
+                <h2>Login Admin</h2>
+                <div class="contact-form" style="margin-top: 1rem; text-align:left;">
+                    <label>Email:</label>
+                    <input type="email" id="login-email" placeholder="Email Admin">
+                    <label>Password:</label>
+                    <input type="password" id="login-password" placeholder="Password">
+                    <button class="btn-primary" style="width:100%" onclick="loginAdmin()">Masuk</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-materi" class="page">
             <h2>Manajemen Materi Komponen</h2>
             <div class="card" style="margin: 1rem 0;">
-                <h3>Tambah Materi</h3>
                 <div class="contact-form">
                     <input type="text" id="mat-nama" placeholder="Nama Komponen (cth: Prosesor)">
                     <textarea id="mat-fungsi" rows="2" placeholder="Penjelasan Fungsi Komponen..."></textarea>
                     <button class="btn-primary" onclick="tambahMateri()">Tambah</button>
                 </div>
             </div>
-            <h3>Daftar Materi Saat Ini</h3>
             <div id="list-materi" class="step-list"></div>
         </section>
 
         <section id="tab-simulator" class="page">
             <h2>Manajemen Komponen Simulator</h2>
             <div class="card" style="margin: 1rem 0;">
-                <h3>Tambah Komponen Baru</h3>
                 <div class="contact-form">
-                    <label>Kategori Perangkat:</label>
                     <select id="sim-kategori">
                         <option value="cpu">Prosesor (CPU)</option>
                         <option value="mobo">Motherboard</option>
@@ -46,28 +63,25 @@
                         <option value="storage">Penyimpanan (Storage)</option>
                         <option value="psu">Power Supply (PSU)</option>
                     </select>
-                    <input type="text" id="sim-nama" placeholder="Nama Seri Perangkat Hardware">
-                    <input type="number" id="sim-harga" placeholder="Harga (Contoh: 1500000)">
-                    <input type="text" id="sim-socket" placeholder="Socket (Isi jika CPU/Mobo, cth: LGA1700 / AM4)">
-                    <input type="text" id="sim-ramtype" placeholder="Tipe RAM (Isi jika Mobo/RAM, cth: DDR4 / DDR5)">
-                    <button class="btn-primary" onclick="tambahSimulator()">Tambah Ke Simulator</button>
+                    <input type="text" id="sim-nama" placeholder="Nama Hardware">
+                    <input type="number" id="sim-harga" placeholder="Harga Angka (Contoh: 1500000)">
+                    <input type="text" id="sim-socket" placeholder="Socket (Opsional untuk CPU/Mobo)">
+                    <input type="text" id="sim-ramtype" placeholder="Tipe RAM (Opsional untuk Mobo/RAM)">
+                    <button class="btn-primary" onclick="tambahSimulator()">Tambah</button>
                 </div>
             </div>
-            <h3>Daftar Inventaris Simulator</h3>
             <div id="list-simulator" class="step-list"></div>
         </section>
 
         <section id="tab-kuis" class="page">
             <h2>Manajemen Soal Kuis</h2>
             <div class="card" style="margin: 1rem 0;">
-                <h3>Tambah Pertanyaan Baru</h3>
                 <div class="contact-form">
                     <input type="text" id="kuis-tanya" placeholder="Pertanyaan Kuis">
-                    <input type="text" id="kuis-o0" placeholder="Pilihan Jawaban A">
-                    <input type="text" id="kuis-o1" placeholder="Pilihan Jawaban B">
-                    <input type="text" id="kuis-o2" placeholder="Pilihan Jawaban C">
-                    <input type="text" id="kuis-o3" placeholder="Pilihan Jawaban D">
-                    <label>Indeks Jawaban Benar:</label>
+                    <input type="text" id="kuis-o0" placeholder="Opsi A">
+                    <input type="text" id="kuis-o1" placeholder="Opsi B">
+                    <input type="text" id="kuis-o2" placeholder="Opsi C">
+                    <input type="text" id="kuis-o3" placeholder="Opsi D">
                     <select id="kuis-benar">
                         <option value="0">Jawaban A Benar</option>
                         <option value="1">Jawaban B Benar</option>
@@ -77,8 +91,12 @@
                     <button class="btn-primary" onclick="tambahKuis()">Tambah Soal</button>
                 </div>
             </div>
-            <h3>Daftar Soal Kuis</h3>
             <div id="list-kuis" class="step-list"></div>
+        </section>
+
+        <section id="tab-pesan" class="page">
+            <h2>Kotak Masuk Kontak</h2>
+            <div id="list-pesan" class="step-list" style="margin-top: 1rem;"></div>
         </section>
     </main>
 
