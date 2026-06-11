@@ -19,13 +19,14 @@
             <li><a href="#" onclick="showPage('materi')">Materi Komponen</a></li>
             <li><a href="#" onclick="showPage('perakitan')">Panduan Perakitan</a></li>
             <li><a href="#" onclick="showPage('rekomendasi')">Rekomendasi Spesifikasi</a></li>
+            <li><a href="#" onclick="showPage('kuis')">Kuis</a></li>
+            <li><a href="#" onclick="showPage('simulator')">Coba Rakit</a></li>
             <li><a href="#" onclick="showPage('kontak')">Kontak</a></li>
             <li><a href="admin/" class="btn-admin">Login Admin</a></li>
         </ul>
     </nav>
 
     <main class="container">
-        
         <section id="beranda" class="page active">
             <div class="hero-banner">
                 <div class="banner-content">
@@ -50,7 +51,7 @@
                 </div>
         </section>
 
-        <section id="perakitan" class="page">
+ <section id="perakitan" class="page">
             <h2>Panduan Lengkap Perakitan PC</h2>
             <div class="step-list">
                 <div class="step-card">
@@ -156,6 +157,62 @@
                 </div>
             </div>
         </section>
+        <section id="kuis" class="page">
+            <h2>Kuis Evaluasi Pemahaman</h2>
+            <p>Uji pengetahuan Anda tentang komponen dan perakitan PC di sini.</p>
+            
+            <div id="quizContainer" class="card" style="margin-top: 1rem;">
+                <h3 id="pertanyaanKuis">Memuat Pertanyaan...</h3>
+                <div id="opsiJawaban" class="opsi-grid"></div>
+                <button id="btnSelanjutnya" class="btn-primary" style="display:none;" onclick="soalSelanjutnya()">Selanjutnya</button>
+                <p id="skorAkhir" style="font-weight: bold; margin-top: 1rem;"></p>
+            </div>
+        </section>
+
+        <section id="simulator" class="page">
+            <h2>Simulator Rakit PC</h2>
+            <p>Pilih komponen sesuai budget Anda. Sistem akan otomatis memperingatkan jika ada komponen yang tidak cocok.</p>
+            
+            <div class="simulator-layout">
+                <div class="simulator-form">
+                    <div class="form-group">
+                        <label>Prosesor (CPU):</label>
+                        <select id="sim-cpu" onchange="hitungSimulator()"><option value="">-- Pilih CPU --</option></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Motherboard:</label>
+                        <select id="sim-mobo" onchange="hitungSimulator()"><option value="">-- Pilih Motherboard --</option></select>
+                    </div>
+                    <div class="form-group">
+                        <label>RAM (Memory):</label>
+                        <select id="sim-ram" onchange="hitungSimulator()"><option value="">-- Pilih RAM --</option></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Kartu Grafis (VGA):</label>
+                        <select id="sim-vga" onchange="hitungSimulator()"><option value="">-- Pilih VGA --</option></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Penyimpanan (Storage):</label>
+                        <select id="sim-storage" onchange="hitungSimulator()"><option value="">-- Pilih Storage --</option></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Power Supply (PSU):</label>
+                        <select id="sim-psu" onchange="hitungSimulator()"><option value="">-- Pilih PSU --</option></select>
+                    </div>
+                </div>
+
+                <div class="simulator-summary card">
+                    <h3>Ringkasan Rakitan</h3>
+                    <div id="warningBox" class="warning-box" style="display: none;"></div>
+                    <hr style="margin: 1rem 0;">
+                    <div class="total-price">
+                        <span>Total Estimasi Harga:</span>
+                        <h2 id="totalHarga">Rp 0</h2>
+                    </div>
+                    <button class="btn-primary" style="width: 100%; margin-top: 1rem;" onclick="resetSimulator()">Reset Pilihan</button>
+                </div>
+            </div>
+        </section>
 
         <section id="kontak" class="page">
             <h2>Hubungi Kami</h2>
@@ -170,9 +227,10 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 Edukasi Rakit PC - Developed by Rian.</p>
+        <p>&copy; 2026 Edukasi Rakit PC - Kelompok 6.</p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js"></script>
 </body>
 </html>
