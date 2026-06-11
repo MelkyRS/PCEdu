@@ -246,3 +246,74 @@ footer {
     margin-bottom: 0;
     padding-bottom: 0;
 }
+
+.opsi-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.btn-opsi {
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    background: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    text-align: left;
+    transition: 0.3s;
+}
+
+.btn-opsi:hover {
+    background: #f0f8ff;
+    border-color: #3498db;
+}
+
+.btn-opsi.benar { background: #2ecc71; color: white; border-color: #27ae60; }
+.btn-opsi.salah { background: #e74c3c; color: white; border-color: #c0392b; }
+
+.simulator-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: bold;
+}
+
+.form-group select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.warning-box {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    padding: 1rem;
+    border-left: 4px solid #ef4444;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.warning-box ul {
+    margin-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .simulator-layout {
+        grid-template-columns: 1fr;
+    }
+}
