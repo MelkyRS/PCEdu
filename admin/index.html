@@ -3,33 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Edukasi Rakit PC</title>
+    <title>Admin Dashboard - PCEdu</title>
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
     <nav class="navbar">
         <div class="logo">Admin Dashboard</div>
         <ul class="nav-links">
-            <li><a href="../">Kembali ke Web Publik</a></li>
+            <li><a href="#" onclick="bukaTab('tab-materi')">Manajemen Materi</a></li>
+            <li><a href="#" onclick="bukaTab('tab-simulator')">Manajemen Simulator</a></li>
+            <li><a href="#" onclick="bukaTab('tab-kuis')">Manajemen Kuis</a></li>
+            <li><a href="../" class="btn-admin" style="background:#34495e;">Kembali ke Web</a></li>
         </ul>
     </nav>
 
     <main class="container">
-        <h2>Manajemen Materi Komponen (CRUD)</h2>
-        <p>Halaman ini dikhususkan untuk admin menambah, mengubah, atau menghapus data spesifikasi komputer.</p>
-        
-        <div class="card" style="margin-top: 2rem;">
-            <h3>Tambah Komponen Baru</h3>
-            <form class="contact-form" id="adminForm">
-                <label>Nama Komponen:</label>
-                <input type="text" id="namaKomp" placeholder="Contoh: Sistem Pendingin (Cooler)">
-                
-                <label>Fungsi / Penjelasan:</label>
-                <textarea id="fungsiKomp" rows="3" placeholder="Masukkan penjelasan fungsional komponen..."></textarea>
-                
-                <button type="button" class="btn-primary" onclick="alert('Ini akan mengirim data ke Supabase/MySQL!')">Simpan Data</button>
-            </form>
-        </div>
+        <section id="tab-materi" class="page active">
+            <h2>Manajemen Materi Komponen</h2>
+            <div class="card" style="margin: 1rem 0;">
+                <h3>Tambah Materi</h3>
+                <div class="contact-form">
+                    <input type="text" id="mat-nama" placeholder="Nama Komponen (cth: Prosesor)">
+                    <textarea id="mat-fungsi" rows="2" placeholder="Penjelasan Fungsi Komponen..."></textarea>
+                    <button class="btn-primary" onclick="tambahMateri()">Tambah</button>
+                </div>
+            </div>
+            <h3>Daftar Materi Saat Ini</h3>
+            <div id="list-materi" class="step-list"></div>
+        </section>
+
+        <section id="tab-simulator" class="page">
+            <h2>Manajemen Komponen Simulator</h2>
+            <div class="card" style="margin: 1rem 0;">
+                <h3>Tambah Komponen Baru</h3>
+                <div class="contact-form">
+                    <label>Kategori Perangkat:</label>
+                    <select id="sim-kategori">
+                        <option value="cpu">Prosesor (CPU)</option>
+                        <option value="mobo">Motherboard</option>
+                        <option value="ram">RAM (Memory)</option>
+                        <option value="vga">Kartu Grafis (VGA)</option>
+                        <option value="storage">Penyimpanan (Storage)</option>
+                        <option value="psu">Power Supply (PSU)</option>
+                    </select>
+                    <input type="text" id="sim-nama" placeholder="Nama Seri Perangkat Hardware">
+                    <input type="number" id="sim-harga" placeholder="Harga (Contoh: 1500000)">
+                    <input type="text" id="sim-socket" placeholder="Socket (Isi jika CPU/Mobo, cth: LGA1700 / AM4)">
+                    <input type="text" id="sim-ramtype" placeholder="Tipe RAM (Isi jika Mobo/RAM, cth: DDR4 / DDR5)">
+                    <button class="btn-primary" onclick="tambahSimulator()">Tambah Ke Simulator</button>
+                </div>
+            </div>
+            <h3>Daftar Inventaris Simulator</h3>
+            <div id="list-simulator" class="step-list"></div>
+        </section>
+
+        <section id="tab-kuis" class="page">
+            <h2>Manajemen Soal Kuis</h2>
+            <div class="card" style="margin: 1rem 0;">
+                <h3>Tambah Pertanyaan Baru</h3>
+                <div class="contact-form">
+                    <input type="text" id="kuis-tanya" placeholder="Pertanyaan Kuis">
+                    <input type="text" id="kuis-o0" placeholder="Pilihan Jawaban A">
+                    <input type="text" id="kuis-o1" placeholder="Pilihan Jawaban B">
+                    <input type="text" id="kuis-o2" placeholder="Pilihan Jawaban C">
+                    <input type="text" id="kuis-o3" placeholder="Pilihan Jawaban D">
+                    <label>Indeks Jawaban Benar:</label>
+                    <select id="kuis-benar">
+                        <option value="0">Jawaban A Benar</option>
+                        <option value="1">Jawaban B Benar</option>
+                        <option value="2">Jawaban C Benar</option>
+                        <option value="3">Jawaban D Benar</option>
+                    </select>
+                    <button class="btn-primary" onclick="tambahKuis()">Tambah Soal</button>
+                </div>
+            </div>
+            <h3>Daftar Soal Kuis</h3>
+            <div id="list-kuis" class="step-list"></div>
+        </section>
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="admin-script.js"></script>
 </body>
 </html>
